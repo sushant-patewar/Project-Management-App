@@ -1,0 +1,171 @@
+<div class="container">
+  <form [formGroup]="manageTaskForm" #manageTaskNgForm="ngForm" (ngSubmit)="loadTasks(manageTaskNgForm)">
+    <!-- Header -->
+    <div class="row">
+      <div class="col-md-10">
+        <h2>Tasks / Issues</h2>
+      </div>
+      <div class="col-md-2">
+        <!-- Add User -->
+        <button mat-raised-button color="primary" [disabled]="manageTaskForm.invalid" (click)="openDialog()"
+          title="Add new Task/ Issue">
+          <mat-icon>add</mat-icon>
+          <span>Add Task</span>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <br />
+
+    <!-- Select Project & Sprint -->
+    <div class="row">
+      <!-- Project -->
+      <div class="col-md-4">
+        <mat-form-field>
+          <input type="text" placeholder="Select Project" aria-label="Select Project" matInput name="projectControl"
+            formControlName="projectControl" [matAutocomplete]="projectAutoComplete" [ngModel]="filteredProjects"
+            ngModel>
+          <mat-autocomplete #projectAutoComplete="matAutocomplete" [displayWith]="displaySelectedProject">
+            <mat-option *ngFor="let project of filteredProjects | async" [value]="project">
+              {{project.ProjectName}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error
+            *ngIf="manageTaskForm.controls['projectControl'].hasError('required')  && manageTaskForm.controls['projectControl'].touched">
+            This field is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="manageTaskForm.controls['projectControl'].hasError('incorrect') && manageTaskForm.controls['projectControl'].touched">
+            Select a valid project
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <!-- Select Sprint -->
+        <mat-form-field>
+          <input type="text" placeholder="Select Sprint" aria-label="Select Sprint" matInput name="sprintControl"
+            formControlName="sprintControl" [matAutocomplete]="sprintAutoComplete" [ngModel]="filteredSprints" ngModel>
+          <mat-autocomplete #sprintAutoComplete="matAutocomplete" [displayWith]="displaySelectedSprint">
+            <mat-option *ngFor="let sprint of filteredSprints | async" [value]="sprint">
+              {{sprint.SprintName}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error
+            *ngIf="manageTaskForm.controls['sprintControl'].hasError('required') && manageTaskForm.controls['sprintControl'].touched">
+            This field is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="manageTaskForm.controls['sprintControl'].hasError('incorrect') && manageTaskForm.controls['sprintControl'].touched">
+            Select a valid sprint
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 text-right">
+        <button mat-raised-button color="primary" [disabled]="manageTaskForm.invalid" type="submit" cdkFocusInitial
+          title="Show Tasks / Issues">
+          <mat-icon>cached</mat-icon>
+          <span>Show Task</span>
+        </button>
+      </div>
+    </div>
+
+
+    <!-- Filter field -->
+    <div class="row">
+      <div class="col-md-7">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+      <div class="col-md-5">
+        <mat-radio-group>
+          <div class="row pt-3">
+            <div class="col-md-3">
+              <mat-radio-button value="all" (click)="applyCheckFilter('All')">All
+              </mat-radio-button>
+            </div>
+            <div class="col-md-3">
+              <mat-radio-button value="subtask" (click)="applyCheckFilter('SubTask')">Sub-task
+              </mat-radio-button>
+            </div>
+            <div class="col-md-3">
+              <mat-radio-button value="defect" (click)="applyCheckFilter('Defect')">Defect</mat-radio-button>
+            </div>
+            <div class="col-md-3">
+              <mat-radio-button value="wishlist" (click)="applyCheckFilter('WishList')">Wish</mat-radio-button>
+            </div>
+          </div>
+        </mat-radio-group>
+      </div>
+    </div>
+
+
+    <!-- Table -->
+    <div class="mat-elevation-z8" *ngIf="tasks?.length > 0 && manageTaskForm.valid">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- TaskIcon Column -->
+        <ng-container matColumnDef="TaskIcon">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row">
+            <mat-icon *ngIf="row.TaskType === 'Task'" class="mat-icon-task">turned_in</mat-icon>
+            <mat-icon *ngIf="row.TaskType === 'SubTask'" class="mat-icon-subtask">label</mat-icon>
+            <mat-icon *ngIf="row.TaskType === 'Defect'" class="mat-icon-defect">bug_report</mat-icon>
+            <mat-icon *ngIf="row.TaskType === 'WishList'" class="mat-icon-wishlist"> card_giftcard</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- TaskType Column -->
+        <ng-container matColumnDef="TaskType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Task Type </th>
+          <td mat-cell *matCellDef="let row">
+            <span>{{row.TaskType}} </span>
+          </td>
+        </ng-container>
+
+        <!-- TaskID Column -->
+        <ng-container matColumnDef="TaskID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Task ID </th>
+          <td mat-cell *matCellDef="let row"> {{row.TaskID}} </td>
+        </ng-container>
+
+        <!-- ParentID Column -->
+        <ng-container matColumnDef="ParentID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Parent ID </th>
+          <td mat-cell *matCellDef="let row"> {{row.ParentID}} </td>
+        </ng-container>
+
+
+        <!-- TaskName Column -->
+        <ng-container matColumnDef="TaskSummary">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Summary </th>
+          <td mat-cell *matCellDef="let row"> {{row.TaskSummary}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-icon color="primary" title="Edit {{row.TaskID}}" style="cursor: pointer" (click)="openDialog(row)">edit
+            </mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- LogEfforts Column -->
+        <ng-container matColumnDef="LogEfforts">
+          <th mat-header-cell *matHeaderCellDef> Log Efforts </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-icon color="primary" title="Log Efforts for {{row.TaskID}}" style="cursor: pointer">timer</mat-icon>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          [ngClass]="{'mark-defect': row.TaskType === 'Defect', 'mark-task': row.TaskType === 'Task', 'mark-subtask': row.TaskType === 'SubTask' }">
+        </tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50]"></mat-paginator>
+    </div>
+
+  </form>
+</div>

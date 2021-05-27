@@ -1,0 +1,37 @@
+mat-sidenav-container,
+mat-sidenav-content,
+mat-sidenav {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.menu-item span {
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-icon {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  font-size: 40px;
+  vertical-align: middle;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.main-container {
+  margin: 0 10px;
+  padding: 10px;
+  height: 100%;
+}

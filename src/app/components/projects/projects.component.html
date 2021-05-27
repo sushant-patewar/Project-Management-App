@@ -1,0 +1,70 @@
+<div class="container">
+  <!-- Header -->
+  <div class="row">
+    <div class="col-md-10">
+      <h2>Projects</h2>
+    </div>
+    <div class="col-md-2">
+      <!-- Add Project -->
+      <button mat-raised-button color="primary" (click)="openDialog()" title="Add Project">
+        <mat-icon>add</mat-icon>
+        <span>Add Project</span>
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <br />
+
+  <!-- Filter field -->
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <!-- [dataSource]="dataSource" -->
+
+  <div *ngFor="let project of filterProjects;let i=index;">
+    <div *ngIf="i % 3 == 0" class="row m-3">
+      <!-- Cell 1 -->
+      <div class="col-md-4" *ngIf="i  < filterProjects.length">
+        <mat-card [style.backgroundColor]="filterProjects[i].IsActive ? 'rgb(66, 134, 244)':'lightGray'">
+          <mat-card-header>
+            <!-- <mat-card-title>{{project?.ProjectName}}</mat-card-title> -->
+            <mat-card-title>{{filterProjects[i].ProjectName}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-button>View/Edit</button>
+            <button mat-button>Manage Associate</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <!-- Cell 1 -->
+      <div class="col-md-4" *ngIf="i + 1 < filterProjects.length">
+        <mat-card [style.backgroundColor]="filterProjects[i].IsActive ? 'rgb(66, 134, 244)':'lightGray'">
+          <mat-card-header>
+            <!-- <mat-card-title>{{project?.ProjectName}}</mat-card-title> -->
+            <mat-card-title>{{filterProjects[i + 1].ProjectName}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-button>View/Edit</button>
+            <button mat-button>Manage Associate</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <!-- Cell 1 -->
+      <div class="col-md-4" *ngIf="i + 2 < filterProjects.length">
+        <mat-card [style.backgroundColor]="filterProjects[i].IsActive ? 'rgb(66, 134, 244)':'lightGray'">
+          <mat-card-header>
+            <!-- <mat-card-title>{{project?.ProjectName}}</mat-card-title> -->
+            <mat-card-title>{{filterProjects[i + 2].ProjectName}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-actions>
+            <button mat-button>View/Edit</button>
+            <button mat-button>Manage Associate</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

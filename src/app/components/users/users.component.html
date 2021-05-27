@@ -1,0 +1,75 @@
+<div class="container">
+  <!-- Header -->
+  <div class="row">
+    <div class="col-md-10">
+      <h2>User Management</h2>
+    </div>
+    <div class="col-md-2">
+      <!-- Add User -->
+      <button mat-raised-button color="primary" (click)="openDialog()" title="Add new user">
+        <mat-icon>add</mat-icon>
+        <span>Add User</span>
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <br />
+
+  <!-- Filter field -->
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <!-- Table -->
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- AssociateNumber Column -->
+      <ng-container matColumnDef="AssociateNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Associate Number </th>
+        <td mat-cell *matCellDef="let row"> {{row.AssociateNumber}} </td>
+      </ng-container>
+
+      <!-- FirstName Column -->
+      <ng-container matColumnDef="FirstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.FirstName}} </td>
+      </ng-container>
+
+      <!-- LastName Column -->
+      <ng-container matColumnDef="LastName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> LastName </th>
+        <td mat-cell *matCellDef="let row"> {{row.LastName}} </td>
+      </ng-container>
+
+      <!-- Location Column -->
+      <ng-container matColumnDef="Location">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+        <td mat-cell *matCellDef="let row"> {{row.Location}} </td>
+      </ng-container>
+
+      <!-- IsActive Column -->
+      <ng-container matColumnDef="IsActive">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+        <td mat-cell *matCellDef="let row">
+          <button *ngIf="row.IsActive" mat-button>Active</button>
+          <button *ngIf="!row.IsActive" mat-button color="warn">Inactive</button>
+        </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon (click)="openDialog(row)" color="primary" title="Edit {{row.AssociateNumber}}"
+            style="cursor: pointer">edit</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50]"></mat-paginator>
+  </div>
+</div>

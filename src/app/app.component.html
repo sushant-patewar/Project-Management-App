@@ -1,0 +1,96 @@
+<!-- Application Tool bar -->
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <!-- <mat-icon (click)="sidenav.toggle()">menu</mat-icon> -->
+      <mat-icon (click)="sidenav.toggle()" aria-hidden="false" aria-label="Menu">menu</mat-icon>
+    </button>
+    <h1 [routerLink]="'/dashboard'">Project Manangement App</h1>
+    <span class="toolbar-spacer"></span>
+    <mat-icon [matMenuTriggerFor]="menu" class="toolbar-icon" aria-hidden="false" aria-label="Account">account_circle
+    </mat-icon>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>perm_identity</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- Side bar -->
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened #sidenav>
+    <mat-nav-list>
+      <!-- Menu Dashboard -->
+      <a class="menu-item" mat-list-item [routerLink]="'/dashboard'">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <mat-divider></mat-divider>
+
+      <!-- Menu Users -->
+      <a class="menu-item" mat-list-item [routerLink]="'/users'">
+        <mat-icon>person</mat-icon>
+        <span>Users</span>
+      </a>
+      <mat-divider></mat-divider>
+
+      <!-- Menu Projects -->
+      <a class="menu-item" mat-list-item [routerLink]="'/projects'">
+        <mat-icon>assignment_turned_in</mat-icon>
+        <span>Projects</span>
+      </a>
+      <mat-divider></mat-divider>
+
+      <!-- Menu Project Sprint -->
+      <a class="menu-item" mat-list-item [routerLink]="'/sprints'">
+        <mat-icon>assignment</mat-icon>
+        <span>Sprints</span>
+      </a>
+      <mat-divider></mat-divider>
+
+      <!-- Menu Tasks -->
+      <a class="menu-item" mat-list-item [routerLink]="'/tasks'">
+        <mat-icon>list_alt</mat-icon>
+        <span>Tasks / Issues</span>
+      </a>
+      <mat-divider></mat-divider>
+
+      <!-- Menu Log Efforts -->
+      <!-- <a class="menu-item" mat-list-item [routerLink]="'/logefforts'">
+        <mat-icon>timer</mat-icon>
+        <span>Log Efforts</span>
+      </a>
+      <mat-divider></mat-divider> -->
+
+      <!-- Menu Reports -->
+      <a class="menu-item" mat-list-item [routerLink]="'/reports'">
+        <mat-icon>assessment</mat-icon>
+        <span>Reports</span>
+      </a>
+      <mat-divider></mat-divider>
+
+      <!-- Menu Cloase Sidebar -->
+      <a class="menu-item" mat-list-item (click)="sidenav.toggle()" mat-list-item>
+        <mat-icon>keyboard_backspace</mat-icon>
+        <span>Close</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content style="height:auto !important">
+    <div class="container-fluid" style="min-height: 78vh;">
+      <mat-card class="main-container">
+        <router-outlet></router-outlet>
+      </mat-card>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- <router-outlet></router-outlet> -->

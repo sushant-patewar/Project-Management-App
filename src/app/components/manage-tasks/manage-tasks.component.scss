@@ -1,0 +1,49 @@
+.mat-column-TaskID {
+  width: 5% !important;
+}
+.mat-column-ParentID {
+  width: 5% !important;
+}
+
+.mat-column-TaskIcon {
+  width: 8% !important;
+}
+.mat-column-TaskType {
+  width: 12% !important;
+}
+.mat-column-TaskName {
+  width: 54% !important;
+}
+
+.mat-column-Action {
+  width: 8% !important;
+}
+.mat-column-LogEfforts {
+  width: 8% !important;
+}
+
+.mat-icon-task {
+  color: lightgreen;
+}
+.mat-icon-subtask {
+  color: lightsalmon;
+}
+
+.mat-icon-defect {
+  color: red;
+}
+
+.mat-icon-wishlist {
+  color: lightseagreen;
+}
+
+// .mark-task .mat-icon {
+//   color: lightgreen;
+// }
+// .mark-subtask .mat-icon {
+//   color: lightsalmon;
+// }
+
+// .mark-defect .mat-icon {
+//   color: red;
+// }

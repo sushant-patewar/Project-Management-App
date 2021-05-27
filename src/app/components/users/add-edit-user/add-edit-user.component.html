@@ -1,0 +1,127 @@
+<form [formGroup]="userForm" #userNgForm="ngForm" (ngSubmit)="saveUser(userNgForm)">
+  <!-- [formGroup]="addeditUserForm" #AddEditUserFormForm="ngForm" -->
+  <h1 mat-dialog-title>
+    <span *ngIf="addMode">Add User</span>
+    <span *ngIf="!addMode">Edit User - {{user?.AssociateNumber}}</span>
+  </h1>
+  <mat-divider></mat-divider>
+
+  <div>
+    <!-- Row 1 -->
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <!-- AssociateNumber  -->
+        <mat-form-field hintLabel="Max 10 characters">
+          <input matInput name="AssociateNumber" formControlName="AssociateNumber" placeholder="Associate Number"
+            [ngModel]="user?.AssociateNumber" ngModel>
+          <!-- Hint -->
+          <mat-hint align="end">{{userForm.value.AssociateNumber?.length || 0}}/10</mat-hint>
+          <!-- Required Field Error -->
+          <mat-error
+            *ngIf="userForm.controls['AssociateNumber'].hasError('required') && userForm.controls['AssociateNumber'].touched">
+            This field is <strong>required</strong>
+          </mat-error>
+          <!-- Pattern Error -->
+          <mat-error
+            *ngIf="userForm.controls['AssociateNumber'].hasError('pattern') && userForm.controls['AssociateNumber'].touched">
+            Enter a number only.
+          </mat-error>
+
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 text-right">
+        <!-- Active / Inactive -->
+        <mat-radio-group class="tp-radio-group" name="IsActive" formControlName="IsActive" [ngModel]="user?.IsActive"
+          ngModel>
+          <mat-radio-button class="tp-radio-button" [value]="true">Active</mat-radio-button>
+          <mat-radio-button class="tp-radio-button" [value]="false">Inactive</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <!-- FirstName  -->
+        <mat-form-field hintLabel="Max 50 characters">
+          <input matInput name="FirstName" placeholder="First Name" formControlName="FirstName"
+            [ngModel]="user?.FirstName" ngModel>
+          <!-- Hint -->
+          <mat-hint align="end">{{userForm.value.FirstName?.length || 0}}/50</mat-hint>
+          <!-- Required Field Error -->
+          <mat-error
+            *ngIf="userForm.controls['FirstName'].hasError('required') && userForm.controls['FirstName'].touched">
+            This field is <strong>required</strong>
+          </mat-error>
+          <!-- Pattern Error -->
+          <mat-error
+            *ngIf="userForm.controls['FirstName'].hasError('pattern') && userForm.controls['FirstName'].touched">
+            Enter character that is either a letter or a number.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <!-- LastName  -->
+        <mat-form-field hintLabel="Max 50 characters">
+          <input matInput name="LastName" placeholder="Last Name" formControlName="LastName" [ngModel]="user?.LastName"
+            ngModel>
+          <!-- Hint -->
+          <mat-hint align="end">{{userForm.value.LastName?.length || 0}}/50</mat-hint>
+          <!-- Required Field Error -->
+          <mat-error
+            *ngIf="userForm.controls['LastName'].hasError('required') && userForm.controls['LastName'].touched">
+            This field is <strong>required</strong>
+          </mat-error>
+          <!-- Pattern Error -->
+          <mat-error *ngIf="userForm.controls['LastName'].hasError('pattern') && userForm.controls['LastName'].touched">
+            Enter character that is either a letter or a number.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <!-- Location  -->
+        <mat-form-field>
+          <mat-select name="Location" placeholder="Location" formControlName="Location" [ngModel]="user?.Location"
+            ngModel>
+            <mat-option value="1">Onsite</mat-option>
+            <mat-option value="2">Offshore</mat-option>
+          </mat-select>
+          <!-- Required Field Error -->
+          <mat-error
+            *ngIf="userForm.controls['Location'].hasError('required') && userForm.controls['Location'].touched">
+            This field is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6"></div>
+    </div>
+    <!-- Row 4 -->
+    <mat-divider></mat-divider>
+    <div class="row mt-3">
+      <div class="col-md-8"></div>
+      <div class="col-md-4">
+        <div class="row">
+          <!-- Button Save Changes -->
+          <div class="col-md-8 text-right" mat-dialog-actions>
+            <button mat-raised-button color="primary" [disabled]="userForm.invalid" type="submit" cdkFocusInitial
+              title="Save Changes">
+              <mat-icon>add</mat-icon>
+              <span>Save Changes</span>
+            </button>
+          </div>
+          <!-- Cancel -->
+          <div class="col-md-4" mat-dialog-actions>
+            <!--   -->
+            <button mat-flat-button type="reset" [mat-dialog-close]="{ 'DialogResult': 'Closed' }">
+              <span>Cancel</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
