@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
+<!-- toc -->
+* [Usage](#usage)
+* [Build](#build)
+
+# Usage
+<!-- usage -->
+Run 'npm i -D sass' if getting 'Node.js Sass version 7.0.0 is incompatible with ^4.0.0 || ^5.0.0 || ^6.0.0' error while ng-serve.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
