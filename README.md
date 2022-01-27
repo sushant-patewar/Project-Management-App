@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 <!-- toc -->
 * [Usage](#usage)
-* [Development server](#Development)
+* [Development server](#Development server)
 * [Build](#build)
 
 ## Usage
