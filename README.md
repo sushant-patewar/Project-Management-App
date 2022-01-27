@@ -4,9 +4,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 <!-- toc -->
 * [Usage](#usage)
+* [Development server](#Development)
 * [Build](#build)
 
-# Usage
+## Usage
 <!-- usage -->
 Run 'npm i -D sass' if getting 'Node.js Sass version 7.0.0 is incompatible with ^4.0.0 || ^5.0.0 || ^6.0.0' error while ng-serve.
 
